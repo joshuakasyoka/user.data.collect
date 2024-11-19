@@ -287,24 +287,10 @@ useEffect(() => {
   };
 
   const getOverlappingPolygons = (): JSX.Element[] => {
-    const totalShapes = Object.values(categories).length;
-    const angleStep = (2 * Math.PI) / totalShapes;
+
     
-    return Object.entries(categories).map(([category, config], index) => {
+    return Object.entries(categories).map(([category, config]) => {
       // Base position on a circle
-      const baseRadius = 15;
-      const angle = index * angleStep;
-      
-      // Add randomization to both radius and angle
-      const radiusJitter = Math.random() * 10 - 5; // Random value between -5 and 5
-      const angleJitter = (Math.random() * 0.5 - 0.25); // Random angle adjustment ±0.25 radians
-      
-      // Calculate final position with jitter
-      const radius = baseRadius + radiusJitter;
-      const finalAngle = angle + angleJitter;
-      
-      const offsetX = radius * Math.cos(finalAngle);
-      const offsetY = radius * Math.sin(finalAngle);
       
       // Scale based on hover time
       const baseScale = 0.7;
@@ -314,7 +300,7 @@ useEffect(() => {
       return (
         <g key={`${category}-${Math.random()}`}>
           <polygon
-            points={getPolygonPoints(config.points, scale, offsetX, offsetY)}
+            points={getPolygonPoints(config.points, scale)}
             fill="#7FFF7F"
             fillOpacity={0.15}
             stroke="#7FFF7F"
