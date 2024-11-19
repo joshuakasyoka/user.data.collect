@@ -339,7 +339,7 @@ useEffect(() => {
     <div className="min-h-screen font-mono p-4">
       <div className="flex justify-between text-sm mb-4">
         <span className="text-green-400">User Behavior</span>
-        <span>Real-time Generation</span>
+        <span>Real-time Analysis</span>
       </div>
 
       {/* Changed grid-cols-3 to grid-cols-1 md:grid-cols-3 for responsive layout */}
