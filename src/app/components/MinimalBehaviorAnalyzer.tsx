@@ -267,13 +267,20 @@ useEffect(() => {
       });
   };
 
-  const getPolygonPoints = (numPoints: number): string => {
+  const getPolygonPoints = (
+    numPoints: number,
+    scale: number = 1,
+    offsetX: number = 0,
+    offsetY: number = 0
+  ): string => {
     const points: { x: number; y: number }[] = [];
+    const baseRadius = 30; // Moved radius to a constant
+    
     for (let i = 0; i < numPoints; i++) {
       const angle = (i * 2 * Math.PI) / numPoints - Math.PI / 2;
       points.push({
-        x: 50 + 30 * Math.cos(angle),
-        y: 50 + 30 * Math.sin(angle)
+        x: 50 + (baseRadius * scale * Math.cos(angle)) + offsetX,
+        y: 50 + (baseRadius * scale * Math.sin(angle)) + offsetY
       });
     }
     return points.map(p => `${p.x},${p.y}`).join(' ');
@@ -307,7 +314,7 @@ useEffect(() => {
       return (
         <g key={`${category}-${Math.random()}`}>
           <polygon
-            points={getPolygonPoints(config.points)}
+            points={getPolygonPoints(config.points, scale, offsetX, offsetY)}
             fill="#7FFF7F"
             fillOpacity={0.15}
             stroke="#7FFF7F"
@@ -339,7 +346,7 @@ useEffect(() => {
     <div className="min-h-screen font-mono p-4">
       <div className="flex justify-between text-sm mb-4">
         <span className="text-green-400">User Behavior</span>
-        <span>Real-time Analysis</span>
+        <span>Real-time Profile Generation</span>
       </div>
 
       {/* Changed grid-cols-3 to grid-cols-1 md:grid-cols-3 for responsive layout */}
