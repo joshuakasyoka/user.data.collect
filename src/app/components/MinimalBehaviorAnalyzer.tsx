@@ -280,20 +280,43 @@ useEffect(() => {
   };
 
   const getOverlappingPolygons = (): JSX.Element[] => {
-    const variations = [-5, -5, 5, 5, 5];
-    return Object.values(categories).map((category, categoryIndex) => 
-      variations.map((offset, i) => (
-        <polygon
-          key={`${categoryIndex}-${i}`}
-          points={getPolygonPoints(category.points)}
-          fill="#7FFF7F"
-          stroke="#7FFF7F"
-          strokeWidth="0.5"
-          transform={`translate(${offset}, ${offset})`}
-          opacity={1}
-        />
-      ))
-    ).flat();
+    const totalShapes = Object.values(categories).length;
+    const angleStep = (2 * Math.PI) / totalShapes;
+    
+    return Object.entries(categories).map(([category, config], index) => {
+      // Base position on a circle
+      const baseRadius = 15;
+      const angle = index * angleStep;
+      
+      // Add randomization to both radius and angle
+      const radiusJitter = Math.random() * 10 - 5; // Random value between -5 and 5
+      const angleJitter = (Math.random() * 0.5 - 0.25); // Random angle adjustment ±0.25 radians
+      
+      // Calculate final position with jitter
+      const radius = baseRadius + radiusJitter;
+      const finalAngle = angle + angleJitter;
+      
+      const offsetX = radius * Math.cos(finalAngle);
+      const offsetY = radius * Math.sin(finalAngle);
+      
+      // Scale based on hover time
+      const baseScale = 0.7;
+      const hoverScale = hoverTimes[category] ? Math.min(hoverTimes[category] / 100, 0.3) : 0;
+      const scale = baseScale + hoverScale;
+
+      return (
+        <g key={`${category}-${Math.random()}`}>
+          <polygon
+            points={getPolygonPoints(config.points)}
+            fill="#7FFF7F"
+            fillOpacity={0.15}
+            stroke="#7FFF7F"
+            strokeWidth="0.5"
+            className="transition-all duration-300"
+          />
+        </g>
+      );
+    });
   };
 
   const handleAddCategory = (): void => {
@@ -316,12 +339,11 @@ useEffect(() => {
     <div className="min-h-screen font-mono p-4">
       <div className="flex justify-between text-sm mb-4">
         <span className="text-green-400">User Behavior</span>
-        <span>Real-time Analysis</span>
+        <span>Real-time Profile Generation</span>
       </div>
 
       {/* Changed grid-cols-3 to grid-cols-1 md:grid-cols-3 for responsive layout */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {/* Left column */}
         <div className="space-y-4">
           <div className="border p-4 aspect-square">
             <div className="h-full flex items-center justify-center">
