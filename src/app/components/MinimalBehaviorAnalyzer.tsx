@@ -334,6 +334,7 @@ useEffect(() => {
         <span className="text-green-400">User Behavior</span>
         <span>Real-time Analysis</span>
       </div>
+    <div className="text-sm mb-4">Scroll down to add your own data categories and explore how insights are generated...</div>
 
       {/* Changed grid-cols-3 to grid-cols-1 md:grid-cols-3 for responsive layout */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
