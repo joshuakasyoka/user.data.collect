@@ -329,7 +329,7 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-screen font-mono p-4">
+    <div className=" background-color: white min-h-screen font-mono p-4">
       <div className="flex justify-between text-sm mb-4">
         <span className="text-green-400">User Behavior</span>
         <span>Real-time Analysis</span>
