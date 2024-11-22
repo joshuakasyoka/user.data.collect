@@ -466,6 +466,9 @@ useEffect(() => {
             ))}
           </div>
         </div>
+        <div className="flex justify-centre text-sm mb-6">
+        <span className="text-green-400">Take a screenshot of your data and send to j.green0620231@arts.ac.uk</span>
+        </div>
       </div>
     </div>
   );
