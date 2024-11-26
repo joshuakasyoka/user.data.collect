@@ -48,10 +48,10 @@ interface CategoryPercentage {
 
 const MinimalBehaviorAnalyzer: React.FC = () => {
   const initialCategories: Categories = {
-    'Cat Memes': { points: 5 },
-    'Bear Videos': { points: 6 },
-    'Tom Holland': { points: 7 },
-    'Porridge': { points: 4 },
+    'Online mourning rituals': { points: 5 },
+    'Digital comfort gestures': { points: 6 },
+    'Stressed typing patterns': { points: 7 },
+    'Online ritual participation': { points: 4 },
   };
 
   const [categories, setCategories] = useState<Categories>(initialCategories);
